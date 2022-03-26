@@ -1,11 +1,20 @@
+#
+# This is free software, lisence use MIT.
+# 
+# Copyright (C) 2019 P3TERX <https://p3terx.com>
+# Copyright (C) 2020 KFERMercer <KFER.Mercer@gmail.com>
+# 
+# <https://github.com/KFERMercer/OpenWrt-CI>
+#
+
 name: OpenWrt-CI
 
 on:
   push:
     branches: 
       - master
-  schedule:
-      - cron: 0 20 * * *
+  # schedule:
+  #   - cron: 0 20 * * *
   release:
     types: [published]
 
@@ -59,14 +68,19 @@ jobs:
           rm -f ./.config*
           touch ./.config
 
+          #
+          # 在 cat >> .config <<EOF 到 EOF 之间粘贴你的编译配置, 需注意缩进关系
+          # 例如:
+
           cat >> .config <<EOF
           CONFIG_TARGET_IMAGES_GZIP=y
           CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
           CONFIG_KERNEL_BUILD_DOMAIN="Azure"
-          CONFIG_PACKAGE_curl=y
-          CONFIG_PACKAGE_wget=y
-          CONFIG_PACKAGE_luci-app-docker=y
           EOF
+
+          #
+          # ===============================================================
+          # 
 
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
