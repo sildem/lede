@@ -58,12 +58,12 @@ jobs:
 
           df -h
           
-      # - name: Clone Openclash
-      #   run: |
-      #     cd package
-      #     mkdir openwrt-packages
-      #     cd openwrt-packages
-      #     git clone https://github.com/vernesong/OpenClash.git
+      - name: Clone Openclash
+        run: |
+          cd package
+          mkdir openwrt-packages
+          cd openwrt-packages
+          git clone https://github.com/vernesong/OpenClash.git
 
       - name: Update feeds
         run: |
@@ -89,10 +89,16 @@ jobs:
           
           #调整Luci package
           cat >> .config <<EOF
-          #CONFIG_PACKAGE_luci-app-openclash=y
+          CONFIG_PACKAGE_luci-app-openclash=y
           CONFIG_PACKAGE_curl=y
           CONFIG_PACKAGE_wget=y
-          CONFIG_PACKAGE_luci-app-docker=n        
+          CONFIG_PACKAGE_luci-app-docker=n
+          CONFIG_PACKAGE_luci_app_ca_certificates=y
+          CONFIG_PACKAGE_luci-app-vlmcsd=n
+          CONFIG_PACKAGE_wget-ssl=y
+          CONFIG_PACKAGE_wget-nossl=y
+          CONFIG_PACKAGE_luci-compact=y
+          CONFIG_PACKAGE_po2lmo=y
           EOF
 
           sed -i 's/^[ \t]*//g' ./.config
