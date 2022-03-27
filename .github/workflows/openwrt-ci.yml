@@ -58,12 +58,12 @@ jobs:
 
           df -h
           
-      - name: Clone Openclash
-        run: |
-          cd package
-          mkdir openwrt-packages
-          cd openwrt-packages
-          git clone https://github.com/vernesong/OpenClash.git
+      # - name: Clone Openclash
+      #   run: |
+      #     cd package
+      #     mkdir openwrt-packages
+      #     cd openwrt-packages
+      #     git clone https://github.com/vernesong/OpenClash.git
 
       - name: Update feeds
         run: |
@@ -82,14 +82,14 @@ jobs:
           CONFIG_TARGET_ath79_generic_DEVICE_tplink_archer-c7-v2=y
           EOF
           
-          #Luci主题
+          Luci主题
           cat >> .config <<EOF
           CONFIG_PACKAGE_luci-theme-argon=y
           EOF
           
-          #调整Luci package
+          调整Luci package
           cat >> .config <<EOF
-          CONFIG_PACKAGE_luci-app-openclash=y
+          #CONFIG_PACKAGE_luci-app-openclash=y
           CONFIG_PACKAGE_curl=y
           CONFIG_PACKAGE_wget=y
           CONFIG_PACKAGE_luci-app-docker=n        
