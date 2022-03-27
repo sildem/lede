@@ -13,8 +13,8 @@ on:
   push:
     branches: 
       - master
-  schedule:
-    - cron: 0 20 * * *
+  # schedule:
+  #   - cron: 0 20 * * *
   release:
     types: [published]
 
@@ -73,9 +73,9 @@ jobs:
           # 例如:
 
           cat >> .config <<EOF
-          CONFIG_TARGET_ath79=y
-          CONFIG_TARGET_ath79_DEVICE_tplink_archer-c7-v2
-          CONFIG_TARGET_BOARD="ath79"
+          CONFIG_TARGET_IMAGES_GZIP=y
+          CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
+          CONFIG_KERNEL_BUILD_DOMAIN="Azure"
           EOF
 
           #
