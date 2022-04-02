@@ -64,6 +64,13 @@ jobs:
           mkdir openwrt-packages
           cd openwrt-packages
           git clone https://github.com/kenzok8/openwrt-packages.git
+          git clone https://github.com/vernesong/OpenClash.git
+          git clone https://github.com/jerrykuku/lua-maxminddb.git
+          git clone https://github.com/jerrykuku/luci-app-vssr.git
+          git clone https://github.com/jerrykuku/luci-theme-argon.git
+          git clone https://github.com/xiaorouji/openwrt-passwall.git
+          git clone https://github.com/fw876/helloworld.git
+          git clone https://github.com/Boos4721/OpenWrt-Packages.git
 
       - name: Update feeds
         run: |
@@ -77,21 +84,24 @@ jobs:
         
           #定义固件类型
           cat >> .config <<EOF
-          CONFIG_TARGET_ath79=y
-          CONFIG_TARGET_ath79_generic=y
-          CONFIG_TARGET_ath79_generic_DEVICE_tplink_archer-c7-v2=y
+          CONFIG_TARGET_ipq807x=y
+          CONFIG_TARGET_ipq807x_generic=y
+          CONFIG_TARGET_ipq807x_generic_DEVICE_xiaomi_ax3600=y
           EOF
           
           #Luci主题
           cat >> .config <<EOF
+          # CONFIG_PACKAGE_luci-theme-boostrap is not set
           CONFIG_PACKAGE_luci-theme-argon=y
           EOF
           
           #调整Luci package
           cat >> .config <<EOF
+          # CONFIG_PACKAGE_luci-app-vlmcsd is not set
           CONFIG_PACKAGE_luci-app-openclash=y
           CONFIG_PACKAGE_curl=y
           CONFIG_PACKAGE_wget=y
+          CONFIG_PACKAGE_nss=y
           CONFIG_PACKAGE_luci-app-docker=n
           CONFIG_PACKAGE_luci_app_ca_certificates=y
           CONFIG_PACKAGE_luci-app-vlmcsd=n
